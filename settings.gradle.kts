@@ -1,0 +1,1 @@
+rootProject.name = "ru.financemanager.finance_manager_backend"
