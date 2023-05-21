@@ -1,4 +1,5 @@
-package ru.financemanager.dabase.categorie
+package ru.financemanager.dabase.category
 
-class CategoryDTO {
-}
+class CategoryDTO(
+    val name: String
+)
