@@ -9,14 +9,14 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object User : Table(){
     private val login = User.varchar("login", 25)
     private val password = User.varchar("password", 25)
-    private val email = User.varchar("email", 25)
+    private val email = User.varchar("email", 25).nullable()
 
     fun insertUser(userDTO: UserDTO) {
         transaction {
             User.insert {
                 it[login] = userDTO.login
                 it[password] = userDTO.password
-                it[email] = userDTO.email ?: ""
+                it[email] = userDTO.email
             }
         }
     }
