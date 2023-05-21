@@ -5,6 +5,7 @@ import io.ktor.client.statement.*
 import io.ktor.server.testing.*
 import kotlin.test.*
 import io.ktor.http.*
+import org.junit.Test
 import ru.financemanager.plugins.*
 
 class ApplicationTest {
