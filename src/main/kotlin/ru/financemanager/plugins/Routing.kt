@@ -12,7 +12,7 @@ data class Test(
 
 fun Application.configureRouting() {
     routing {
-        get("/login") {
+        get("/test") {
             call.respond(Test(text = "hello?"))
         }
     }
