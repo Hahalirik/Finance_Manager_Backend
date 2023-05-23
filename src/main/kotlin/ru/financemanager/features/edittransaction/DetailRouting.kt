@@ -1,15 +1,14 @@
-package ru.financemanager.features.login
+package ru.financemanager.features.edittransaction
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import ru.financemanager.features.login.LoginController
 
-fun Application.configureLoginRouting() {
+fun Application.configureDetailRouting() {
 
     routing {
-        post("/login") {
-            val loginController = LoginController(call)
-            loginController.performLogin()
+        post("/detail") {
+            DetailController(call).getDetails()
         }
     }
 }

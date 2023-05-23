@@ -1,37 +1,26 @@
-package ru.financemanager.features.login
+package ru.financemanager.features.edittransaction
 
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
+import ru.financemanager.dabase.detail.Detail
 import ru.financemanager.dabase.tokens.TokenDTO
 import ru.financemanager.dabase.tokens.Token
+import ru.financemanager.dabase.transaction.Transaction
 import ru.financemanager.dabase.user.User
+import ru.financemanager.utils.EditCheck
 import java.util.*
 
-class LoginController(private val call: ApplicationCall) {
 
-    suspend fun performLogin() {
-        val receive = call.receive<LoginReceiveRemote>()
-        val userDTO = User.getUser(receive.login)
+class DetailController(private val call: ApplicationCall) {
 
-        if (userDTO == null) {
-            call.respond(HttpStatusCode.BadRequest, "User not found")
+    suspend fun getDetails() {
+        val receive = call.receive<DetailReceiveIdTransactionRemote>()
+        if (!EditCheck.isTransactionValid(receive.id_transaction)) {
+            call.respond(HttpStatusCode.Unauthorized, "Token expired")
         } else {
-            if (userDTO.password_hesh == receive.password_hesh) {
-                val token = UUID.randomUUID().toString()
-                Token.insert(
-                    TokenDTO(
-                        id = UUID.randomUUID().toString(),
-                        login = receive.login,
-                        token = token
-                    )
-                )
-
-                call.respond(LoginResponseRemote(token = token))
-            } else {
-                call.respond(HttpStatusCode.BadRequest, "Invalid password")
-            }
+            call.respond(Detail.fetchAll().filter { it.fk_id_transaction.contains(receive.id_transaction, ignoreCase = true) })
         }
     }
 }
