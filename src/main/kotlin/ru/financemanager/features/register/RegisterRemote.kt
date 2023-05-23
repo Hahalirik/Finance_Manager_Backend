@@ -1,4 +1,4 @@
-package ru.playzone.features.register
+package ru.financemanager.features.register
 
 import kotlinx.serialization.Serializable
 
@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 data class RegisterReceiveRemote(
     val login: String,
     val email: String,
-    val password: String
+    val password_hesh: String,
+    val salt_password: String
 )
 
 @Serializable

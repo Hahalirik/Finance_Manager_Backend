@@ -1,15 +1,16 @@
-package ru.playzone.features.register
+package ru.financemanager.features.register
 
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import org.jetbrains.exposed.exceptions.ExposedSQLException
-import ru.playzone.database.tokens.TokenDTO
-import ru.playzone.database.tokens.Tokens
-import ru.playzone.database.users.UserDTO
-import ru.playzone.database.users.Users
-import ru.playzone.utils.isValidEmail
+import ru.financemanager.dabase.tokens.TokenDTO
+
+import ru.financemanager.dabase.tokens.Token
+import ru.financemanager.dabase.user.User
+import ru.financemanager.dabase.user.UserDTO
+import ru.financemanager.utils.isValidEmail
 import java.util.*
 
 class RegisterController(private val call: ApplicationCall) {
@@ -20,19 +21,19 @@ class RegisterController(private val call: ApplicationCall) {
             call.respond(HttpStatusCode.BadRequest, "Email is not valid")
         }
 
-        val userDTO = Users.fetchUser(registerReceiveRemote.login)
+        val userDTO = User.getUser(registerReceiveRemote.login)
         if (userDTO != null) {
             call.respond(HttpStatusCode.Conflict, "User already exists")
         } else {
             val token = UUID.randomUUID().toString()
 
             try {
-                Users.insert(
+                User.insertUser(
                     UserDTO(
                         login = registerReceiveRemote.login,
-                        password = registerReceiveRemote.password,
-                        email = registerReceiveRemote.email,
-                        username = ""
+                        password_hesh = registerReceiveRemote.password_hesh,
+                        salt_password = registerReceiveRemote.salt_password,
+                        email = registerReceiveRemote.email
                     )
                 )
             } catch (e: ExposedSQLException) {
@@ -41,9 +42,10 @@ class RegisterController(private val call: ApplicationCall) {
                 call.respond(HttpStatusCode.BadRequest, "Can't create user ${e.localizedMessage}")
             }
 
-            Tokens.insert(
+            Token.insert(
                 TokenDTO(
-                    rowId = UUID.randomUUID().toString(), login = registerReceiveRemote.login,
+                    id = UUID.randomUUID().toString(),
+                    login = registerReceiveRemote.login,
                     token = token
                 )
             )
