@@ -1,4 +1,4 @@
-package ru.financemanager.dabase.token
+package ru.financemanager.dabase.tokens
 
 class TokenDTO(
     val id: String,

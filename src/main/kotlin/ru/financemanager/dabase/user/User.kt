@@ -1,22 +1,23 @@
 package ru.financemanager.dabase.user
 
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object User : Table(){
-    private val login = User.varchar("login", 25)
-    private val password = User.varchar("password", 25)
-    private val email = User.varchar("email", 25).nullable()
+    private val login = User.varchar("login", 45)
+    private val password_hesh = User.varchar("password_hesh", 45)
+    private val salt_password = User.varchar("salt_password", 45)
+    private val email = User.varchar("e-mail", 45)
 
     fun insertUser(userDTO: UserDTO) {
         transaction {
             User.insert {
                 it[login] = userDTO.login
-                it[password] = userDTO.password
-                it[email] = userDTO.email
+                it[password_hesh] = userDTO.password_hesh
+                it[salt_password] = userDTO.salt_password
+                it[email] = userDTO.email ?: ""
             }
         }
     }
@@ -27,7 +28,8 @@ object User : Table(){
                 val userModel = User.select { User.login.eq(login) }.single()
                 UserDTO(
                     login = userModel[User.login],
-                    password = userModel[password],
+                    password_hesh = userModel[password_hesh],
+                    salt_password = userModel[salt_password],
                     email = userModel[email]
                 )
             }

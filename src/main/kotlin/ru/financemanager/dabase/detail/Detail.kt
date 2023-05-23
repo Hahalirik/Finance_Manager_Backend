@@ -9,8 +9,8 @@ import ru.financemanager.dabase.transaction.TransactionDTO
 
 object Detail : Table() {
     private val name = Detail.varchar("name", 45)
-    private val id_detail = Detail.integer("id_detail")
-    private val fk_id_transaction = Detail.integer("fk_id_transaction")
+    private val id_detail = Detail.varchar("id_detail", 50)
+    private val fk_id_transaction = Detail.varchar("fk_id_transaction", 50)
     private val price = Detail.decimal("price", 10, 2)
 
     fun insertDetail(detailDTO: DetailDTO) {
