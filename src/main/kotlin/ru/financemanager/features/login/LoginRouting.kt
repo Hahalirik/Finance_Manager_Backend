@@ -1,14 +1,8 @@
-package ru.playzone.features.login
+package ru.financemanager.features.login
 
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ru.playzone.cache.InMemoryCache
-import ru.playzone.cache.TokenCache
-import ru.playzone.features.register.RegisterReceiveRemote
-import java.util.*
+import ru.financemanager.features.login.LoginController
 
 fun Application.configureLoginRouting() {
 

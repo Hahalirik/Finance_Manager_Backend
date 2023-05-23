@@ -1,11 +1,11 @@
-package ru.playzone.features.login
+package ru.financemanager.features.login
 
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class LoginReceiveRemote(
     val login: String,
-    val password: String
+    val password_hesh: String
 )
 
 @Serializable
