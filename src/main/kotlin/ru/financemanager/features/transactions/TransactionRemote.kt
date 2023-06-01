@@ -21,13 +21,26 @@ data class TransactionReceiveDateTimeRemote(
 data class TransactionReceiveRemote(
     val name: String,
     val date_time: String,
-    val summ_price: String,
     val category_name: String,
     val token: String,
     val detailList: List<DetailReceiveRemote>
 )
 
 @Serializable
-data class TransactionResponseRemote(
+data class TransactionResponseIdRemote(
     val id_transaction: String,
+)
+
+@Serializable
+data class TransactionResponseRemote(
+    val name: String,
+    val id_transaction: String,
+    val date_time: String,
+    val summ_price: String,
+    val category_name: String
+)
+
+@Serializable
+data class TransactionResponseAllRemote(
+    val transactions: List<TransactionResponseRemote>
 )

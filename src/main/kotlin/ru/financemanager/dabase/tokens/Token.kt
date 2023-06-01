@@ -10,8 +10,8 @@ import ru.financemanager.dabase.user.User
 
 object Token : Table() {
     private val id = Token.varchar("id", 50)
-    private val user_login = Token.varchar("user_login", 25)
-    private val token = Token.varchar("token", 50)
+    private val user_login = Token.varchar("user_login", 45)
+    private val token = Token.varchar("token", 45)
 
     fun insert(tokenDTO: TokenDTO) {
         transaction {

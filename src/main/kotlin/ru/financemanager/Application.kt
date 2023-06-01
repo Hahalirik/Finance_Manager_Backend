@@ -1,10 +1,10 @@
 package ru.financemanager
 
 import io.ktor.server.application.*
-import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.jetbrains.exposed.sql.Database
+import ru.financemanager.features.category.configureCategoryRouting
 import ru.financemanager.features.edittransaction.configureDetailRouting
 import ru.financemanager.features.login.configureLoginRouting
 import ru.financemanager.features.register.configureRegisterRouting
@@ -18,7 +18,7 @@ fun main() {
         user = "User",
         password = "123456tesT!)")
 
-    embeddedServer(CIO, port = 8080, host = "0.0.0.0", module = Application::module)
+    embeddedServer(Netty, port = 8080, host = "127.0.0.1", module = Application::module)
     .start(wait = true)
 }
 
@@ -29,4 +29,5 @@ fun Application.module() {
     configureLoginRouting()
     configureDetailRouting()
     configureTransactionRouting()
+    configureCategoryRouting()
 }

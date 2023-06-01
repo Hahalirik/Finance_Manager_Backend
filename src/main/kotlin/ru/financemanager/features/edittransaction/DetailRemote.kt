@@ -19,3 +19,8 @@ data class DetailResponseRemote(
     val id_detail: String,
     val price: String
 )
+
+@Serializable
+data class DetailResponseAllRemote(
+    val details: List<DetailResponseRemote>
+)

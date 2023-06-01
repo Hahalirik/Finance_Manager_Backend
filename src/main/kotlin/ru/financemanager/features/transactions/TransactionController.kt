@@ -10,6 +10,7 @@ import ru.financemanager.dabase.detail.DetailDTO
 import ru.financemanager.dabase.tokens.Token
 import ru.financemanager.dabase.transaction.Transaction
 import ru.financemanager.dabase.transaction.TransactionDTO
+import ru.financemanager.dabase.transaction.mapToTransactionAllResponseRemote
 import ru.financemanager.utils.EditCheck
 import java.util.*
 
@@ -23,7 +24,11 @@ class TransactionController(private val call: ApplicationCall) {
         } else {
             val tokenDTO = Token.getToken(token!!)
             if (tokenDTO != null) {
-                call.respond(Transaction.getTransactions(tokenDTO.login))
+                call.respond(TransactionResponseAllRemote(
+                    transactions = Transaction.getTransactions(tokenDTO.login)
+                        .map{it.mapToTransactionAllResponseRemote()}
+                ))
+
             } else {
                 call.respond(HttpStatusCode.BadRequest, "Token does not exist")
             }
@@ -38,7 +43,11 @@ class TransactionController(private val call: ApplicationCall) {
         } else {
             val tokenDTO = Token.getToken(receive.token)
             if (tokenDTO != null) {
-                call.respond(Transaction.fetchAll().filter { it.category_name.contains(receive.category_name, ignoreCase = true) }.filter { it.user_login.contains(tokenDTO.login, ignoreCase = true) })
+                call.respond(TransactionResponseAllRemote(Transaction.fetchAll()
+                    .filter { it.category_name.contains(receive.category_name, ignoreCase = true) }
+                    .filter { it.user_login.contains(tokenDTO.login, ignoreCase = true) }
+                    .map{it.mapToTransactionAllResponseRemote()}
+                ))
             } else {
                 call.respond(HttpStatusCode.BadRequest, "Token does not exist")
             }
@@ -53,7 +62,10 @@ class TransactionController(private val call: ApplicationCall) {
         } else {
             val tokenDTO = Token.getToken(receive.token)
             if (tokenDTO != null) {
-                call.respond(Transaction.getTransactionsDateTime(receive.start, receive.end).filter {  it.user_login.contains(tokenDTO.login, ignoreCase = true)  })
+                call.respond(TransactionResponseAllRemote(Transaction.getTransactionsDateTime(receive.start, receive.end)
+                    .filter {  it.user_login.contains(tokenDTO.login, ignoreCase = true)  }
+                    .map{it.mapToTransactionAllResponseRemote()}
+                ))
             } else {
                 call.respond(HttpStatusCode.BadRequest, "Token does not exist")
             }
@@ -99,7 +111,7 @@ class TransactionController(private val call: ApplicationCall) {
                 )
             }
 
-            call.respond(TransactionResponseRemote(id_transaction = idTransaction))
+            call.respond(TransactionResponseIdRemote(id_transaction = idTransaction))
         }
     }
 }

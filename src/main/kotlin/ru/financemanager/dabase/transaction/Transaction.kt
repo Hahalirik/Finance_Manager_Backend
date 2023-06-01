@@ -12,7 +12,7 @@ object Transaction : Table() {
     private val name = Transaction.varchar("name", 45)
     private val user_login = Transaction.varchar("user_login", 45)
     private val id_transaction = Transaction.varchar("id_transaction", 50)
-    private val date_time = Transaction.varchar("date_time", 12)
+    private val date_time = Transaction.varchar("date_time", 25)
     private val summ_price = Transaction.decimal("summ_price", 10, 2)
     private val category_name = Transaction.varchar("category_name", 45)
 

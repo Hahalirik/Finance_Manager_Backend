@@ -5,6 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import ru.financemanager.dabase.detail.Detail
+import ru.financemanager.dabase.detail.mapToDetailAllResponseRemote
 import ru.financemanager.dabase.tokens.TokenDTO
 import ru.financemanager.dabase.tokens.Token
 import ru.financemanager.dabase.transaction.Transaction
@@ -20,7 +21,11 @@ class DetailController(private val call: ApplicationCall) {
         if (!EditCheck.isTransactionValid(receive.id_transaction)) {
             call.respond(HttpStatusCode.Unauthorized, "Token expired")
         } else {
-            call.respond(Detail.fetchAll().filter { it.fk_id_transaction.contains(receive.id_transaction, ignoreCase = true) })
+            call.respond(DetailResponseAllRemote(
+                details = Detail.fetchAll()
+                    .filter { it.fk_id_transaction.contains(receive.id_transaction, ignoreCase = true) }
+                    .map{ it.mapToDetailAllResponseRemote() }
+            ))
         }
     }
 }
