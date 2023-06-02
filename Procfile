@@ -1,0 +1,1 @@
+web: ./build/install/ru.financemanager.finance_manager_backend/bin/ru.financemanager.finance_manager_backend

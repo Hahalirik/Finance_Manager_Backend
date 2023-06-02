@@ -41,3 +41,7 @@ dependencies {
 
     implementation("mysql:mysql-connector-java:$mysql_version")
 }
+
+tasks {
+    create("stage").dependsOn("installDist")
+}
