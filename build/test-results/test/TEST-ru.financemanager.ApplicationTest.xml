@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.financemanager.ApplicationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-06-01T23:06:55" hostname="DESKTOP-J1A0SQK" time="1.135">
+  <properties/>
+  <testcase name="testRoot" classname="ru.financemanager.ApplicationTest" time="1.135"/>
+  <system-out><![CDATA[2023-06-02 02:06:55.928 [Test worker @coroutine#1] TRACE io.ktor.client.plugins.HttpPlainText - Adding Accept-Charset=UTF-8 to http:///
+2023-06-02 02:06:56.023 [DefaultDispatcher-worker-1 @call-context#2] INFO  ktor.test - No ktor.deployment.watch patterns specified, automatic reload is not active.
+2023-06-02 02:06:56.066 [DefaultDispatcher-worker-1 @call-context#2] INFO  ktor.test - Application started in 0.08 seconds.
+2023-06-02 02:06:56.125 [DefaultDispatcher-worker-1 @request#2] TRACE io.ktor.routing.Routing - Trace for []
+/, segment:0 -> SUCCESS @ /
+  /, segment:0 -> SUCCESS @ /
+    /(method:GET), segment:0 -> SUCCESS @ /(method:GET)
+  /test, segment:0 -> FAILURE "Selector didn't match" @ /test
+Matched routes:
+  "" -> "<slash>" -> "(method:GET)"
+Route resolve result:
+  SUCCESS @ /(method:GET)
+2023-06-02 02:06:56.164 [Test worker @coroutine#1] TRACE i.k.client.plugins.HttpCallValidator - Validating response for request http://localhost/
+2023-06-02 02:06:56.164 [Test worker @coroutine#1] TRACE i.k.c.p.DefaultResponseValidation - Skipping default response validation for http://localhost/
+2023-06-02 02:06:56.548 [Test worker @coroutine#1] TRACE i.k.c.plugins.defaultTransformers - Transformed with default transformers response body for http://localhost/ to class io.ktor.utils.io.core.Input
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
