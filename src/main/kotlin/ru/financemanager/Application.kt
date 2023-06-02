@@ -18,7 +18,7 @@ fun main() {
         user = "User",
         password = "123456tesT!)")
 
-    embeddedServer(Netty, port = 8080, module = Application::module)
+    embeddedServer(Netty, port = 80, module = Application::module)
     .start(wait = true)
 }
 
