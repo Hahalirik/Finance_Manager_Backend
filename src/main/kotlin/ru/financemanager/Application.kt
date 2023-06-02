@@ -1,6 +1,7 @@
 package ru.financemanager
 
 import io.ktor.server.application.*
+import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.jetbrains.exposed.sql.Database
@@ -18,7 +19,7 @@ fun main() {
         user = "User",
         password = "123456tesT!)")
 
-    embeddedServer(Netty, port = 80, module = Application::module)
+    embeddedServer(CIO, port = 80, module = Application::module)
     .start(wait = true)
 }
 
